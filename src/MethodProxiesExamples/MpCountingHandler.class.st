@@ -1,34 +1,35 @@
 "
-I'm counting the number of times I'm executed. 
+I'm an example handler that counts all the times a method has been invoked
 "
 Class {
-	#name : #MpCountingHandler,
-	#superclass : #MpHandler,
+	#name : 'MpCountingHandler',
+	#superclass : 'MpHandler',
 	#instVars : [
 		'count'
 	],
-	#category : #MethodProxiesExamples
+	#category : 'MethodProxiesExamples',
+	#package : 'MethodProxiesExamples'
 }
 
-{ #category : #evaluating }
-MpCountingHandler >> beforeMethod [
+{ #category : 'evaluating' }
+MpCountingHandler >> beforeExecutionWithReceiver: anObject arguments: anArrayOfObjects [
 
 	self count: self count + 1
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MpCountingHandler >> count [
 
 	^ count
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MpCountingHandler >> count: anInteger [
 
 	count := anInteger
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 MpCountingHandler >> initialize [
 
 	super initialize.

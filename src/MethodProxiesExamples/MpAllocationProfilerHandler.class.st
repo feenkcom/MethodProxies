@@ -1,5 +1,6 @@
 "
-I'm a simple little profiler that can store all the objects returned by the spyied method.
+I'm an example handler for profiling purposes that stores all the objects returned by the spyied method
+
 ```
 h := MpAllocationProfilerHandler new.
 p1 := MpMethodProxy 
@@ -17,16 +18,17 @@ p3 install.
 ```
 "
 Class {
-	#name : #MpAllocationProfilerHandler,
-	#superclass : #MpHandler,
+	#name : 'MpAllocationProfilerHandler',
+	#superclass : 'MpHandler',
 	#instVars : [
 		'allocations',
 		'transformationBlock'
 	],
-	#category : #MethodProxiesExamples
+	#category : 'MethodProxiesExamples',
+	#package : 'MethodProxiesExamples'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 MpAllocationProfilerHandler >> afterExecutionWithReceiver: receiver arguments: arguments returnValue: returnValue [ 
 
 	| allocationsPerClass transformedContext |
@@ -36,35 +38,39 @@ MpAllocationProfilerHandler >> afterExecutionWithReceiver: receiver arguments: a
 	^ returnValue
 ]
 
-{ #category : #initialization }
-MpAllocationProfilerHandler >> afterExecutionWithReceiver: receiver arguments: arguments returnValue: returnValue callerContext: callerContext [
-
-	| allocationsPerClass transformedContext |
-	transformedContext := self transformContext: callerContext. 
-	allocationsPerClass := allocations at: receiver ifAbsentPut: [ OrderedCollection new ].
-	allocationsPerClass add: {returnValue. transformedContext}.
-	^ returnValue
-]
-
-{ #category : #accessing }
+{ #category : 'accessing' }
 MpAllocationProfilerHandler >> allocations [
 	^ allocations
 ]
 
-{ #category : #accessing }
+{ #category : 'evaluating' }
+MpAllocationProfilerHandler >> captureCallingContext [
+
+	| runWithInContext |
+	"Find the context of #run:with:in:"
+	runWithInContext := thisContext sender.
+	[
+	runWithInContext isNil or: [ runWithInContext method primitive = 198 ] ]
+		whileFalse: [ runWithInContext := runWithInContext sender ].
+
+	"Find the real sender"
+	^ runWithInContext ifNotNil: [ runWithInContext sender ]
+]
+
+{ #category : 'accessing' }
 MpAllocationProfilerHandler >> contextTransformationBlock: aBlock [
 
 	transformationBlock := aBlock
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 MpAllocationProfilerHandler >> initialize [
 
 	super initialize.
 	allocations := Dictionary new.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MpAllocationProfilerHandler >> transformContext: aContext [
 
 	^ transformationBlock 

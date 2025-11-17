@@ -1,6 +1,7 @@
 "
 I'm a more advanced proxy that propagates itself during execution.
-When a proxy is executed, before letting the execution runs, it installs itself on all the implementators of the methods used in the method.
+When a proxy is executed, before letting the execution runs, it installs itself on all the implementors of the messages sent in the method.
+
 ```
 proxy := nil.
 proxies := nil.
@@ -20,17 +21,18 @@ proxies collect: #handler
 ```
 "
 Class {
-	#name : #MpProfilingHandler,
-	#superclass : #MpHandler,
+	#name : 'MpProfilingHandler',
+	#superclass : 'MpHandler',
 	#instVars : [
 		'count',
 		'wrappedMethod'
 	],
-	#category : #MethodProxiesExamples
+	#category : 'MethodProxiesExamples',
+	#package : 'MethodProxiesExamples'
 }
 
-{ #category : #evaluating }
-MpProfilingHandler >> beforeMethod [
+{ #category : 'evaluating' }
+MpProfilingHandler >> beforeExecutionWithReceiver: anObject arguments: anArrayOfObjects [
 
 	self count: self count + 1.
 
@@ -40,26 +42,26 @@ MpProfilingHandler >> beforeMethod [
 		thenDo: [ :potentialSelector | self instrumentImplementorsOf: potentialSelector ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MpProfilingHandler >> count [
 
 	^ count
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MpProfilingHandler >> count: anInteger [
 
 	count := anInteger
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 MpProfilingHandler >> initialize [
 
 	super initialize.
 	count := 0.
 ]
 
-{ #category : #evaluating }
+{ #category : 'evaluating' }
 MpProfilingHandler >> instrumentImplementorsOf: potentialSelector [
 
 	| newProxy |
@@ -74,12 +76,12 @@ MpProfilingHandler >> instrumentImplementorsOf: potentialSelector [
 	]
 ]
 
-{ #category : #accessing }
-MpProfilingHandler >> wrappedMethod [
+{ #category : 'accessing' }
+MpProfilingHandler >> proxifiedMethod [
 	^ wrappedMethod
 ]
 
-{ #category : #evaluating }
+{ #category : 'evaluating' }
 MpProfilingHandler >> wrappedMethod: aMethod [
 	wrappedMethod := aMethod
 ]

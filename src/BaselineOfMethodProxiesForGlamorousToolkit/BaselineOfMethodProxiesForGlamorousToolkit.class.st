@@ -9,18 +9,13 @@ BaselineOfMethodProxiesForGlamorousToolkit >> baseline: spec [
 
 	<baseline>
 	spec for: #common do: [
-	
-		"This is only needed for Pharo 11"
-		spec package: #Instrumentation.
-			
-		spec 
-			package: #MethodProxies
-				with: [ spec requires: #( Instrumentation )  ] ;
+		spec
+			package: #MethodProxies;
 			package: #'MethodProxies-Tests'
-				with: [ spec requires: #( #MethodProxies ) ];
+			with: [ spec requires: #( #MethodProxies #MethodProxiesExamples ) ];
 			package: #MethodProxiesExamples
-				with: [ spec requires: #( #MethodProxies ) ];
+			with: [ spec requires: #( #MethodProxies ) ];
 			package: #'MethodProxiesExamples-Tests'
-				with: [ 
-					spec requires: #( #MethodProxiesExamples #'MethodProxies-Tests' ) ] ]
+			with: [
+				spec requires: #( #'MethodProxies-Tests' ) ] ]
 ]

@@ -3,76 +3,96 @@ Instance Variables:
 	x	<Integer>
 "
 Class {
-	#name : #MpClassA,
-	#superclass : #Object,
+	#name : 'MpClassA',
+	#superclass : 'Object',
 	#instVars : [
 		'x'
 	],
-	#category : #'MethodProxies-Tests'
+	#category : 'MethodProxies-Tests',
+	#package : 'MethodProxies-Tests'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MpClassA >> methodAcceptingABlock: aBlock [
 
 	^ aBlock value
 ]
 
-{ #category : #debugging }
+{ #category : 'debugging' }
 MpClassA >> methodDelay [
 
 	(Delay forMilliseconds: 1) wait.
 ]
 
-{ #category : #debugging }
+{ #category : 'debugging' }
 MpClassA >> methodLastingOneSecond [
 
 	(Delay forMilliseconds: 0.5) wait.
 	^ 999
 ]
 
-{ #category : #debugging }
+{ #category : 'debugging' }
 MpClassA >> methodOne [
+
 	^ 101
-	
 ]
 
-{ #category : #debugging }
+{ #category : 'debugging' }
 MpClassA >> methodTwo [
 	^ 42
 ]
 
-{ #category : #debugging }
+{ #category : 'debugging' }
 MpClassA >> methodWithArgument: anInteger [
 
 	self x: self x + anInteger.
 	^ self x
 ]
 
-{ #category : #debugging }
+{ #category : 'debugging' }
+MpClassA >> methodWithArgumentOne: anInteger argumentTwo: anInteger2 [
+
+	self x: self x + anInteger + anInteger2 .
+	^ self x
+]
+
+{ #category : 'debugging' }
+MpClassA >> methodWithArgumentOne: anInteger argumentTwo: anInteger2 argThree: arg3 [
+
+	1 error
+]
+
+{ #category : 'debugging' }
 MpClassA >> methodWithException [
 
 	1/0
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MpClassA >> methodWithNonLocalReturn [
 
 	self methodAcceptingABlock: [ ^ self ]
 ]
 
-{ #category : #debugging }
+{ #category : 'debugging' }
+MpClassA >> methodWithNonResumableError [
+
+	1 error
+]
+
+{ #category : 'debugging' }
 MpClassA >> methodWithWarning [
 
 	Warning new signal: 'I warned you'.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MpClassA >> x [
 
 	^ x
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MpClassA >> x: anInteger [
 
 	x := anInteger

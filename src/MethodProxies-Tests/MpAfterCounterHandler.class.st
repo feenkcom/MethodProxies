@@ -3,26 +3,28 @@ I am a method proxy handler for testing that increments a counter after the meth
 I therefore test method exit
 "
 Class {
-	#name : #MpAfterCounterHandler,
-	#superclass : #MpHandler,
+	#name : 'MpAfterCounterHandler',
+	#superclass : 'MpHandler',
 	#instVars : [
 		'count'
 	],
-	#category : #'MethodProxies-Tests'
+	#category : 'MethodProxies-Tests',
+	#package : 'MethodProxies-Tests'
 }
 
-{ #category : #evaluating }
-MpAfterCounterHandler >> afterMethod [
+{ #category : 'evaluating' }
+MpAfterCounterHandler >> afterExecutionWithReceiver: anObject arguments: anArrayOfObjects returnValue: aReturnValue [
 
-	count := count + 1
+	count := count + 1.
+	^ aReturnValue
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MpAfterCounterHandler >> count [
 	^ count
 ]
 
-{ #category : #evaluating }
+{ #category : 'evaluating' }
 MpAfterCounterHandler >> initialize [
 
 	super initialize.

@@ -1,30 +1,32 @@
 Class {
-	#name : #MpTestConcurrentSharedObject,
-	#superclass : #Object,
+	#name : 'MpTestConcurrentSharedObject',
+	#superclass : 'Object',
 	#instVars : [
 		'concurrencySemaphore'
 	],
-	#category : #'MethodProxies-Tests'
+	#category : 'MethodProxies-Tests',
+	#package : 'MethodProxies-Tests'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MpTestConcurrentSharedObject >> concurrencySemaphore [
 
 	^ concurrencySemaphore
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MpTestConcurrentSharedObject >> concurrencySemaphore: anObject [
 
 	concurrencySemaphore := anObject
 ]
 
-{ #category : #initialization }
-MpTestConcurrentSharedObject >> initialize [ 
-	self concurrencySemaphore: (Semaphore new).
+{ #category : 'initialization' }
+MpTestConcurrentSharedObject >> initialize [
+
+	self concurrencySemaphore: Semaphore new
 ]
 
-{ #category : #debugging }
+{ #category : 'debugging' }
 MpTestConcurrentSharedObject >> methodProcess1 [
 	"We are in instrumented territory this trigger should be registered."
 	self trigger1.
@@ -33,17 +35,17 @@ MpTestConcurrentSharedObject >> methodProcess1 [
 	concurrencySemaphore wait.
 ]
 
-{ #category : #debugging }
+{ #category : 'debugging' }
 MpTestConcurrentSharedObject >> methodProcess2 [
 	"Do nothing"
 ]
 
-{ #category : #debugging }
+{ #category : 'debugging' }
 MpTestConcurrentSharedObject >> trigger1 [
 	"Proxified method being counted"
 ]
 
-{ #category : #debugging }
+{ #category : 'debugging' }
 MpTestConcurrentSharedObject >> trigger2 [
 	"Proxified method being counted"
 ]
